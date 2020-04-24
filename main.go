@@ -11,7 +11,7 @@ import (
 const (
 	INTERVAL_SECS = 1
 
-	EMAIL_FEED = "https://mail.google.com/a/gmail.com/feed/atom"
+	EMAIL_FEED = "@mail.google.com/mail/feed/atom/"
 
 	XBM_DIR = "/tmp/statusbar_xbm"
 )

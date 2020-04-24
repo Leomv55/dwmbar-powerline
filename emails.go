@@ -60,11 +60,11 @@ func emails(accounts []gmailAccount) element {
 }
 
 func (g *gmail) fetch(usr, psw string) (c int, err error) {
-	req, err := http.NewRequest("GET", EMAIL_FEED, nil)
+	gurl :="https://"+usr+":"+psw+EMAIL_FEED
+	req, err := http.NewRequest("GET", gurl, nil)
 	if err != nil {
 		return
 	}
-	req.SetBasicAuth(usr, psw)
 	res, err := g.client.Do(req)
 	if err != nil {
 		return
@@ -107,7 +107,7 @@ func (g *gmail) read() {
 func (g *gmail) value() string {
 	var out string
 	if len(g.counts) > 0 {
-		out = "^i(" + xbm("mail") + ")"
+		out = "^fg(white)|^fg() ^i(" + xbm("mail") + ")"
 		for _, c := range g.counts {
 			if c > 0 {
 				out += fmt.Sprintf(" ^fg(#dc322f)%d^fg()", c)

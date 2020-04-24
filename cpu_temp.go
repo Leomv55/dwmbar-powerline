@@ -82,5 +82,5 @@ func (k *CpuTemp) read() (string, error) {
 	default:
 		color = "#859900"
 	}
-	return fmt.Sprintf("^fg(%s)%d °C^fg()", color, c), nil
+	return fmt.Sprintf("^fg(white)| ^fg(%s)%d °C^fg() ^fg(white)|", color, c), nil
 }

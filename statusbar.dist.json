@@ -1,23 +1,19 @@
 {
   "gmail": [
     {
-      "username": "john.doe@gmail.com",
-      "password": "secret"
-    },
-    {
-      "username": "jone.doe@gmail.com",
-      "password": "secret"
+      "username": "leomv3",
+      "password": "55555555555"
     }
   ],
   "dzen2": [
-    "-x", "-820",
+    "-x", "-1666",
     "-y", "0",
-    "-bg", "#073642",
+    "-bg", "#222222",
     "-fg", "#839496",
     "-ta", "r",
     "-p",
-    "-fn", "LiberationSerif:style=Bold:size=11",
+    "-fn", "Hack:style=Regular:size=12",
     "-h", "19",
-    "-w", "710"
+    "-w", "1666"
   ]
 }

@@ -34,9 +34,9 @@ func run(conf string) error {
 	}
 
 	bar.elements = append(bar.elements, keyboard())
-	if len(bar.Gmail) > 0 {
-		bar.elements = append(bar.elements, emails(bar.Gmail))
-	}
+	// if len(bar.Gmail) > 0 {
+	// 	bar.elements = append(bar.elements, emails(bar.Gmail))
+	// }
 	bar.elements = append(bar.elements, network())
 	bar.elements = append(bar.elements, cpu_temp())
 	bar.elements = append(bar.elements, power())

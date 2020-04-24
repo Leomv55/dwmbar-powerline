@@ -128,5 +128,5 @@ func (s *pw_sources) read() string {
 		color = "#859900"
 	}
 
-	return fmt.Sprintf("^fg(%s)%d%%^i(%s)^fg()", color, perc, icon)
+	return fmt.Sprintf("^fg(%s)%d%% ^i(%s)^fg()", color, perc, icon)
 }

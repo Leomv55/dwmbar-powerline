@@ -30,17 +30,13 @@ func date() element {
 }
 
 func (k *Date) read() (string, error) {
-	localTZ, err := time.LoadLocation("Europe/Vilnius")
+	localTZ, err := time.LoadLocation("Asia/Kolkata")
 	if err != nil {
 		return "", err
 	}
-	extraTZ, err := time.LoadLocation("Europe/London")
-	if err != nil {
-		return "", err
-	}
+	
 
 	local := time.Now().In(localTZ).Format("Mon _2 Jan 15:04")
-	extra := "UK " + time.Now().In(extraTZ).Format("15:04")
 
-	return fmt.Sprintf("^fg(white)%s ^i(%s) ^fg()%s", local, xbm("clock2"), extra), nil
+	return fmt.Sprintf("^fg(white)| ^i(%s) ^fg(white)%s ",  xbm("clock2"), local), nil
 }
