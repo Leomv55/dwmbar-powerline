@@ -86,7 +86,7 @@ func (n *Network) stats() error {
 
 	if stats == nil {
 		n.current = nil
-		n.val = fmt.Sprintf("^fg(#dc322f)^i(%s)^fg()", xbm("disconnected"))
+		n.val = fmt.Sprintf("^fg(#424242)^bg(#424242)  ^fg(#dc322f)^i(%s)^fg() ", xbm("disconnected"))
 		return nil
 	}
 
@@ -113,14 +113,14 @@ func (n *Network) stats() error {
 
 		switch {
 		case sig >= 60:
-			out = fmt.Sprintf("^fg(white)|^fg() ^i(%s)", xbm("wifi-full"))
+			out = fmt.Sprintf("^fg(#424242)^bg(#424242) ^fg()^i(%s)", xbm("wifi-full"))
 		case sig >= 30:
-			out = fmt.Sprintf("^fg(white)|^fg() ^i(%s)", xbm("wifi-mid"))
+			out = fmt.Sprintf("^fg(#424242)^bg(#424242) ^fg()^i(%s)", xbm("wifi-mid"))
 		default:
-			out = fmt.Sprintf("^fg(white)|^fg() ^i(%s)", xbm("wifi-low"))
+			out = fmt.Sprintf("^fg(#424242)^bg(#424242)^fg() ^i(%s)", xbm("wifi-low"))
 		}
 	} else {
-		out = fmt.Sprintf("^fg(white)|^fg() ^i(%s)", xbm("net-wired"))
+		out = fmt.Sprintf("^fg(#424242)^bg(#424242)^fg() ^i(%s)", xbm("net-wired"))
 	}
 
 	out += " " + network_traffic(n.current.rx, stats.rx, DOWNLOAD)

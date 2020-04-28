@@ -38,5 +38,5 @@ func (k *Date) read() (string, error) {
 
 	local := time.Now().In(localTZ).Format("Mon _2 Jan 15:04")
 
-	return fmt.Sprintf("^fg(white)| ^i(%s) ^fg(white)%s ",  xbm("clock2"), local), nil
+	return fmt.Sprintf("^fg(#000000)^bg(#000000)  ^fg(white)^i(%s) ^fg(white)%s ",  xbm("clock2"), local), nil
 }

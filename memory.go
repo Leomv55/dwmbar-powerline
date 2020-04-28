@@ -68,5 +68,5 @@ func (k *Memory) read() (string, error) {
 		color = "#859900"
 	}
 
-	return fmt.Sprintf("^fg(%s)%d%% ^i(%s)^fg()", color, perc, xbm("mem")), nil
+	return fmt.Sprintf("^fg(#03254c)^bg(#03254c)  ^fg(%s)%d%% ^i(%s)^fg() ", color, perc, xbm("mem")), nil
 }

@@ -52,5 +52,5 @@ func (k *CpuLoad) read() (string, error) {
 	default:
 		color = "#6c71c4"
 	}
-	return fmt.Sprintf("^fg(white)| ^fg(%s)%.02f ^i(%s)^fg() ^fg(white)|", color, load, xbm("load")), nil
+	return fmt.Sprintf("^fg(#424242)^bg(#424242)  ^fg(%s)%.02f ^i(%s)^fg() ", color, load, xbm("load")), nil
 }
