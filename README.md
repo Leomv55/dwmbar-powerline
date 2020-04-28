@@ -1,14 +1,17 @@
 # Statusbar
 
 This is a statusbar for a **linux** window managers written in **golang**.
+
+Install **Hack** font. powerline works pretty good.
+
 Currently it provides these details:
 
 ## Screenshot
 
-![Screenshot](https://cloud.githubusercontent.com/assets/132389/11613209/8c0a3260-9c21-11e5-8588-16418956562d.png)
+![Screenshot](powerline.png)
 
 - shows active keyboard layout, using **setxkbmap**.
-- **gmail** account unread email counts in configured order.
+- **gmail** account unread email counts in configured order. (not done)
 - **network** connection details, **wifi** or **ethernet**, upload and
   download speeds.
 - **cpu** temperature.
