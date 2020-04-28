@@ -4,6 +4,8 @@ This is a statusbar for a **linux** window managers written in **golang**.
 
 Install **Hack** font. powerline works pretty good.
 
+The **master** branch of this repo is same as the fork as a token of respect.
+
 Currently it provides these details:
 
 ## Screenshot
