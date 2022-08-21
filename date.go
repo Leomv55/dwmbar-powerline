@@ -1,16 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"time"
 )
 
 type Date struct {
-	val string
+	val map[string]interface{}
 }
 
-func (k *Date) value() string {
+func (k *Date) value() map[string]interface{} {
 	return k.val
 }
 
@@ -18,7 +17,7 @@ func date() element {
 	e := &Date{}
 	go func() {
 		for {
-			if val, err := e.read(); err == nil {
+			if val, err := e.read(); val != nil && err == nil {
 				e.val = val
 			} else {
 				log.Printf("could not read date: %v", err)
@@ -29,14 +28,15 @@ func date() element {
 	return e
 }
 
-func (k *Date) read() (string, error) {
+func (k *Date) read() (map[string]interface{}, error) {
 	localTZ, err := time.LoadLocation("Asia/Kolkata")
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	
 
 	local := time.Now().In(localTZ).Format("Mon _2 Jan 15:04")
 
-	return fmt.Sprintf("^fg(#000000)^bg(#000000)  ^fg(white)^i(%s) ^fg(white)%s ",  xbm("clock2"), local), nil
+	return map[string]interface{}{
+		"icon": xbm("clock2"),
+		"time": local}, nil
 }

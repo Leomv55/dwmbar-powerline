@@ -1,19 +1,45 @@
 {
-  "gmail": [
-    {
-      "username": "leomv3",
-      "password": "55555555555"
-    }
-  ],
   "dzen2": [
-    "-x", "-1700",
-    "-y", "0",
-    "-bg", "#222222",
-    "-fg", "#839496",
-    "-ta", "r",
+    "-x",
+    "-900",
+    "-y",
+    "0",
+    "-bg",
+    "#222222",
+    "-fg",
+    "#839496",
+    "-ta",
+    "r",
     "-p",
-    "-fn", "Hack:style=Regular:size=12",
-    "-h", "24",
-    "-w", "1700"
+    "-fn",
+    "Hack:style=Regular:size=12",
+    "-h",
+    "20",
+    "-w",
+    "1200"
+  ],
+  "dzen_powerline_format": {
+    "keyboard": "^fg(white) %s^fg()",
+    "cpu_temp": "^fg(#03254c)^bg(#03254c)   ^fg(%s)%d°C ",
+    "cpu_load": "^fg(#424242)^bg(#424242)  ^fg(%s)%.02f ^i(%s)^fg() ",
+    "memory": "^fg(#03254c)^bg(#03254c)  ^fg(%s)%d%% ^i(%s)^fg() ",
+    "power": "^fg(#000000)^bg(#000000)   ^fg(%s)%d%% ^i(%s)^fg() ",
+    "date": "^fg(#000000)^bg(#000000)  ^fg(white)^i(%s) ^fg(white)%s ",
+    "network": {
+      "disconnected": "^fg(#424242)^bg(#424242)  ^fg(#dc322f)^i(%s)^fg() %s ",
+      "wifi_full": "^fg(#424242)^bg(#424242) ^fg()^i(%s) %s",
+      "wifi_mid": "^fg(#424242)^bg(#424242) ^fg()^i(%s) %s",
+      "wifi_low": "^fg(#424242)^bg(#424242) ^fg()^i(%s) %s",
+      "wired_connected": "^fg(#424242)^bg(#424242)^fg() ^i(%s)"
+    }
+  },
+  "elements_order_list": [
+    "keyboard",
+    "network",
+    "cpu_temp",
+    "power",
+    "cpu_load",
+    "memory_usage",
+    "date"
   ]
 }

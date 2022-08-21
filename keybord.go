@@ -10,10 +10,10 @@ import (
 )
 
 type Keyboard struct {
-	val string
+	val map[string]interface{}
 }
 
-func (k *Keyboard) value() string {
+func (k *Keyboard) value() map[string]interface{} {
 	return k.val
 }
 
@@ -32,23 +32,23 @@ func keyboard() element {
 	return e
 }
 
-func (k *Keyboard) layout() (string, error) {
+func (k *Keyboard) layout() (map[string]interface{}, error) {
 	data, err := exec.Command("setxkbmap", "-print").Output()
 	if err != nil {
-		return "", fmt.Errorf("'setxkbmap -print' command: %s", err)
+		return nil, fmt.Errorf("'setxkbmap -print' command: %s", err)
 	}
 
 	r := regexp.MustCompile(`xkb_symbols[^"]+"([^"]+)`)
 
 	m := r.FindStringSubmatch(string(data))
 	if len(m) != 2 {
-		return "", fmt.Errorf("could not extract keybord layout from %s", string(data))
+		return nil, fmt.Errorf("could not extract keybord layout from %s", string(data))
 	}
 
 	parts := strings.Split(m[1], "+")
 	if len(parts) < 2 {
-		return "", fmt.Errorf("expected at least two elements in keyboard details: %s", m[1])
+		return nil, fmt.Errorf("expected at least two elements in keyboard details: %s", m[1])
 	}
 
-	return fmt.Sprintf("^fg(white) %s^fg()", parts[1]), nil
+	return map[string]interface{}{"layout": parts[1]}, nil
 }

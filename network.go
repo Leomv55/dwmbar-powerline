@@ -30,13 +30,13 @@ type nw_stats struct {
 }
 
 type Network struct {
-	val      string
+	val      map[string]interface{}
 	ethernet []string
 	wireless []string
 	current  *nw_stats
 }
 
-func (n *Network) value() string {
+func (n *Network) value() map[string]interface{} {
 	return n.val
 }
 
@@ -86,7 +86,10 @@ func (n *Network) stats() error {
 
 	if stats == nil {
 		n.current = nil
-		n.val = fmt.Sprintf("^fg(#424242)^bg(#424242)  ^fg(#dc322f)^i(%s)^fg() ", xbm("disconnected"))
+		n.val = map[string]interface{}{
+			"icon":    xbm("disconnected"),
+			"traffic": "",
+			"status":  "disconnected"}
 		return nil
 	}
 
@@ -104,7 +107,7 @@ func (n *Network) stats() error {
 		n.current = stats
 	}
 
-	var out string
+	var icon, status string
 	if stats.wlan {
 		sig, err := stats.signal_strength()
 		if err != nil {
@@ -113,20 +116,25 @@ func (n *Network) stats() error {
 
 		switch {
 		case sig >= 60:
-			out = fmt.Sprintf("^fg(#424242)^bg(#424242) ^fg()^i(%s)", xbm("wifi-full"))
+			icon, status = xbm("wifi-full"), "wifi_full"
 		case sig >= 30:
-			out = fmt.Sprintf("^fg(#424242)^bg(#424242) ^fg()^i(%s)", xbm("wifi-mid"))
+			icon, status = xbm("wifi-mid"), "wifi_mid"
 		default:
-			out = fmt.Sprintf("^fg(#424242)^bg(#424242)^fg() ^i(%s)", xbm("wifi-low"))
+			icon, status = xbm("wifi-low"), "wifi_low"
 		}
 	} else {
-		out = fmt.Sprintf("^fg(#424242)^bg(#424242)^fg() ^i(%s)", xbm("net-wired"))
+		icon, status = xbm("net-wired"), "net_wired"
 	}
 
-	out += " " + network_traffic(n.current.rx, stats.rx, DOWNLOAD)
-	out += " " + network_traffic(n.current.tx, stats.tx, UPLOAD)
+	var output string
+	output += " " + network_traffic(n.current.rx, stats.rx, DOWNLOAD)
+	output += " " + network_traffic(n.current.tx, stats.tx, UPLOAD)
 
-	n.val = out
+	n.val = map[string]interface{}{
+		"icon":    icon,
+		"traffic": output,
+		"status":  status,
+	}
 	n.current = stats
 	return nil
 }

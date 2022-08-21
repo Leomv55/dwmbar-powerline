@@ -13,10 +13,10 @@ import (
 var match_mem = regexp.MustCompile(`Mem:\s+(.+)`)
 
 type Memory struct {
-	val string
+	val map[string]interface{}
 }
 
-func (k *Memory) value() string {
+func (k *Memory) value() map[string]interface{} {
 	return k.val
 }
 
@@ -35,25 +35,25 @@ func memory_usage() element {
 	return e
 }
 
-func (k *Memory) read() (string, error) {
+func (k *Memory) read() (map[string]interface{}, error) {
 	data, err := exec.Command("free", "-m").Output()
 	if err != nil {
-		return "", fmt.Errorf("'free -m' command: %s", err)
+		return nil, fmt.Errorf("'free -m' command: %s", err)
 	}
 
 	m := match_mem.FindStringSubmatch(string(data))
 	if len(m) != 2 {
-		return "", fmt.Errorf("number of matches was not expected for mem submatch")
+		return nil, fmt.Errorf("number of matches was not expected for mem submatch")
 	}
 
 	parts := strings.Fields(m[1])
 	total, err := strconv.Atoi(parts[0])
 	if err != nil {
-		return "", fmt.Errorf("read total memory: %s", err)
+		return nil, fmt.Errorf("read total memory: %s", err)
 	}
 	avail, err := strconv.Atoi(parts[5])
 	if err != nil {
-		return "", fmt.Errorf("read available memory: %s", err)
+		return nil, fmt.Errorf("read available memory: %s", err)
 	}
 	used := total - avail
 	perc := 100 * used / total
@@ -68,5 +68,8 @@ func (k *Memory) read() (string, error) {
 		color = "#859900"
 	}
 
-	return fmt.Sprintf("^fg(#03254c)^bg(#03254c)  ^fg(%s)%d%% ^i(%s)^fg() ", color, perc, xbm("mem")), nil
+	return map[string]interface{}{
+		"color": color,
+		"perc":  perc,
+		"icon":  xbm("mem")}, nil
 }

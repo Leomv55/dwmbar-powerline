@@ -13,11 +13,11 @@ import (
 var match_temp = regexp.MustCompile(`Core\s+\d+:\s+\+([\d]+)`)
 
 type CpuTemp struct {
-	val    string
+	val    map[string]interface{}
 	inputs []string
 }
 
-func (k *CpuTemp) value() string {
+func (k *CpuTemp) value() map[string]interface{} {
 	return k.val
 }
 
@@ -56,31 +56,33 @@ func cpu_temp() element {
 	return e
 }
 
-func (k *CpuTemp) read() (string, error) {
+func (k *CpuTemp) read() (map[string]interface{}, error) {
 	var avg int
 	for _, in := range k.inputs {
 		data, err := ioutil.ReadFile(in)
 		if err != nil {
-			return "", fmt.Errorf("failed to read temperature input: %s - %v", in, err)
+			return nil, fmt.Errorf("failed to read temperature input: %s - %v", in, err)
 		}
 
 		s := strings.TrimSpace(string(data))
 		i, err := strconv.Atoi(s)
 		if err != nil {
-			return "", fmt.Errorf("failed to read temperature input: %s - %v", in, err)
+			return nil, fmt.Errorf("failed to read temperature input: %s - %v", in, err)
 		}
 		avg += i
 	}
 
-	c := avg / len(k.inputs) / 1000
+	temp := avg / len(k.inputs) / 1000
 	var color string
 	switch {
-	case c >= 80:
+	case temp >= 80:
 		color = "#dc322f"
-	case c >= 60:
+	case temp >= 60:
 		color = "#b58900"
 	default:
 		color = "#859900"
 	}
-	return fmt.Sprintf("^fg(#03254c)^bg(#03254c)   ^fg(%s)%d°C ", color, c), nil
+	return map[string]interface{}{
+		"color": color,
+		"temp":  temp}, nil
 }

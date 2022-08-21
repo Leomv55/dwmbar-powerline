@@ -10,10 +10,10 @@ import (
 )
 
 type CpuLoad struct {
-	val string
+	val map[string]interface{}
 }
 
-func (k *CpuLoad) value() string {
+func (k *CpuLoad) value() map[string]interface{} {
 	return k.val
 }
 
@@ -32,16 +32,16 @@ func cpu_load() element {
 	return e
 }
 
-func (k *CpuLoad) read() (string, error) {
+func (k *CpuLoad) read() (map[string]interface{}, error) {
 	data, err := ioutil.ReadFile("/proc/loadavg")
 	if err != nil {
-		return "", fmt.Errorf("read cpu load from %s - %s", "/proc/loadavg", err)
+		return nil, fmt.Errorf("read cpu load from %s - %s", "/proc/loadavg", err)
 	}
 
 	parts := strings.Split(strings.TrimSpace(string(data)), " ")
 	load, err := strconv.ParseFloat(parts[0], 64)
 	if err != nil {
-		return "", fmt.Errorf("parse cpu average load: %s", err)
+		return nil, fmt.Errorf("parse cpu average load: %s", err)
 	}
 	var color string
 	switch {
@@ -52,5 +52,8 @@ func (k *CpuLoad) read() (string, error) {
 	default:
 		color = "#6c71c4"
 	}
-	return fmt.Sprintf("^fg(#424242)^bg(#424242)  ^fg(%s)%.02f ^i(%s)^fg() ", color, load, xbm("load")), nil
+	return map[string]interface{}{
+		"color": color,
+		"load":  load,
+		"icon":  xbm("load")}, nil
 }

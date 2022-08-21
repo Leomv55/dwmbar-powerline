@@ -12,11 +12,11 @@ import (
 
 type pw_sources struct {
 	AC        string
-	val       string
+	val       map[string]interface{}
 	batteries []string
 }
 
-func (s *pw_sources) value() string {
+func (s *pw_sources) value() map[string]interface{} {
 	return s.val
 }
 
@@ -109,9 +109,13 @@ func (s *pw_sources) battery() int {
 	return all / len(s.batteries)
 }
 
-func (s *pw_sources) read() string {
+func (s *pw_sources) read() map[string]interface{} {
 	if s.onAC() {
-		return "^i(" + xbm("power-ac") + ")"
+		return map[string]interface{}{
+			"icon":  xbm("power-ac"),
+			"perc":  nil,
+			"color": nil,
+		}
 	}
 
 	perc := s.battery()
@@ -128,5 +132,8 @@ func (s *pw_sources) read() string {
 		color = "#859900"
 	}
 
-	return fmt.Sprintf("^fg(#000000)^bg(#000000)   ^fg(%s)%d%% ^i(%s)^fg() ", color, perc, icon)
+	return map[string]interface{}{
+		"icon":  icon,
+		"perc":  perc,
+		"color": color}
 }
