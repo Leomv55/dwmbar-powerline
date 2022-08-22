@@ -13,7 +13,6 @@ Currently it provides these details:
 ![Screenshot](powerline.png)
 
 - shows active keyboard layout, using **setxkbmap**.
-- **gmail** account unread email counts in configured order. (not done)
 - **network** connection details, **wifi** or **ethernet**, upload and
   download speeds.
 - **cpu** temperature.
@@ -38,7 +37,7 @@ clone and edit. Create your statusbar configuration:
     cp statusbar.dist.json statusbar.json
 
 **NOTE:** the arguments for **dzen2** output formatting should be changed
-on your needs including **gmail** accounts if available.
+on your needs.
 
 If you run `make` it will build and move binary to
 **/usr/local/bin/statusbar** and statusbar.json if available, to
